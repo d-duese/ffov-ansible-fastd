@@ -1,0 +1,11 @@
+/home/ffov/ansible/inventories/ffov/host_vars/map.ffov.de/mesh.yml
+
+
+mesh_ipv6_address: 2a03:2260:300a::0/128
+in unsere
+mesh_ipv6_address: 2a03:2260:200c::0/128
+geändet
+
+/home/ffov/ansible-markus/ffov-ansible/inventories/ffov
+ffov ist ein verzeichnislink nach
+../../inventories/ffov
