@@ -1,7 +1,0 @@
----
-
-batman_mesh_mac: 00:16:3e:18:97:07
-batman_bat_mac: 00:16:3e:58:88:ff
-batman_mesh_ipv4: 10.233.0.1/16
-batman_mesh_ipv6: 2a03:2260:300a:1000::1/64
-batman_gateway: false

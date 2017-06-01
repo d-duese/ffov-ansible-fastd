@@ -1,7 +1,0 @@
----
-
-fastd_instances:
-  - name: mesh0
-    port: 10000
-    peer_limit: 50
-    secret: 4892638c3acab0320ce741411269e5486847090470cac1af79a39913904caf7c
