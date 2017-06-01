@@ -1,0 +1,31 @@
+---
+
+peers:
+  - name: bb-a.ak.ber
+    as: '201701'
+    peer_ipv4: 100.64.4.212
+    source_ipv4: 100.64.4.213
+    peer_ipv6: 2a03:2260:0:268::1/64
+    source_ipv6: 2a03:2260:0:268::2/64
+    gre_endpoint: 185.66.195.0
+  - name: bb-b.ak.ber
+    as: '201701'
+    peer_ipv4: 100.64.4.216
+    source_ipv4: 100.64.4.217
+    peer_ipv6: 2a03:2260:0:26a::1/64
+    source_ipv6: 2a03:2260:0:26a::2/64
+    gre_endpoint: 185.66.195.1
+  - name: bb-a.ix.dus
+    as: '201701'
+    peer_ipv4: 100.64.4.214
+    source_ipv4: 100.64.4.215
+    peer_ipv6: 2a03:2260:0:269::1/64
+    source_ipv6: 2a03:2260:0:269::2/64
+    gre_endpoint: 185.66.193.0
+  - name: bb-b.ix.dus
+    as: '201701'
+    peer_ipv4: 100.64.4.218
+    source_ipv4: 100.64.4.219
+    peer_ipv6: 2a03:2260:0:26b::1/64
+    source_ipv6: 2a03:2260:0:26b::2/64
+    gre_endpoint: 185.66.193.1

@@ -1,0 +1,16 @@
+[supernodes]
+node01-1.ffov.de ansible_ssh_host=185.46.137.148
+node02-1.ffov.de ansible_ssh_host=188.165.148.0
+node03-1.ffov.de ansible_ssh_host=148.251.239.156
+node03-2.ffov.de ansible_ssh_host=148.251.239.157
+
+[mapservers]
+map.ffov.de ansible_ssh_host=148.251.239.159
+
+[mesh:children]
+supernodes
+mapservers
+
+[batman:children]
+supernodes
+mapservers

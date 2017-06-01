@@ -1,0 +1,11 @@
+---
+
+primary_interface: eth0
+primary_pointopoint: true
+
+primary_v4_address: 85.14.255.22
+primary_v4_netmask: 255.255.255.255
+primary_v4_gateway: 91.194.84.1
+
+primary_v6_address: 2001:4ba0:ffff:0015::22/64
+primary_v6_gateway: 2001:4ba0:ffff:1:beef::1

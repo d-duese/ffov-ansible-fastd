@@ -1,0 +1,11 @@
+---
+
+primary_interface: eth0
+primary_pointopoint: false
+
+primary_v4_address: 188.165.148.0
+primary_v4_netmask: 255.255.255.0
+primary_v4_broadcast: 188.165.148.255
+
+# Zak: IP nicht erreichbar
+primary_v6_address: 2001:41d0:1008:f64::5/64
