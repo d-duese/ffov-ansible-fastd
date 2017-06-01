@@ -1,0 +1,7 @@
+---
+
+- name: Ensure hostname is set
+  hostname: name={{ inventory_hostname_short }}
+
+- name: ensure hostname is configured in /etc/hosts
+  template: src=hosts.j2 dest=/etc/hosts

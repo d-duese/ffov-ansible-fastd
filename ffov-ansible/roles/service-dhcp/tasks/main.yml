@@ -1,0 +1,15 @@
+---
+
+- name: Ensure ISC DHCPD is installed
+  apt: name=isc-dhcp-server
+
+- name: Bind dhcpd to bat0
+  lineinfile: dest=/etc/default/isc-dhcp-server regexp="^INTERFACES" line='INTERFACES="bat0"'
+  notify: "Restart dhcpd"
+
+- name: Install dhcpd.conf
+  template: src=dhcpd.conf.j2 dest=/etc/dhcp/dhcpd.conf
+  notify: "Restart dhcpd"
+
+- name: Ensure dhcpd is started and enabled
+  service: name=isc-dhcp-server state=started enabled=yes

@@ -1,0 +1,47 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+allow-hotplug {{ primary_interface }}
+iface {{ primary_interface }} inet static
+	address {{ primary_v4_address }}
+	netmask {{ primary_v4_netmask }}
+{% if primary_v4_network is defined %}
+	network {{ primary_v4_network }}
+{% endif %}
+{% if primary_v4_broadcast is defined %}
+	broadcast {{ primary_v4_broadcast }}
+{% endif %}
+{% if primary_v4_gateway is defined %}
+	gateway {{ primary_v4_gateway }}
+{% endif %}
+{% if primary_pointopoint %}
+	pointopoint {{ primary_v4_gateway }}
+{% endif %}
+{% if inventory_hostname == "node02-1.ffov.de" %}
+post-up route add 51.255.67.254 dev eth0
+post-up route add default gw 51.255.67.254
+pre-down route del 51.255.67.254 dev eth0
+pre-down route del default gw 51.255.67.254
+{% endif %}
+
+iface {{ primary_interface }} inet6 static
+	address {{ primary_v6_address }}
+{% if primary_v6_gateway is defined %}
+	gateway {{ primary_v6_gateway }}
+{% endif %}
+{% if primary_pointopoint %}
+    pre-up ip -6 route add {{ primary_v6_gateway }} dev {{ primary_interface }}
+{% endif %}
+{% if inventory_hostname == "node02-1.ffov.de" %}
+	post-up /sbin/ip -f inet6 route add 2001:41d0:1008:0fff:ff:ff:ff:ff dev eth0
+	post-up /sbin/ip -f inet6 route add default via 2001:41d0:1008:0fff:ff:ff:ff:ff
+	pre-down /sbin/ip -f inet6 route del default via 2001:41d0:1008:0fff:ff:ff:ff:ff
+	pre-down /sbin/ip -f inet6 route del 2001:41d0:1008:0fff:ff:ff:ff:ff dev eth0
+{% endif %}

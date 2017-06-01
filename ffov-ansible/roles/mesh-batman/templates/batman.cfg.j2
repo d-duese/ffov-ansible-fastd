@@ -1,0 +1,31 @@
+# batman-adv mesh interface
+
+# Dummy-Interface als MainIF mit manueller MAC fuer batman-adv
+auto batman-dummy0
+iface batman-dummy0 inet manual
+    pre-up ip link add $IFACE type dummy
+    pre-up ip link set address {{batman_mesh_mac}} dev $IFACE
+    pre-up ip link set up dev $IFACE
+    post-down ip link set down dev $IFACE
+    post-down ip link del dev $IFACE
+    up batctl if add $IFACE
+
+# batman-adv Mesh Interface, wird von meshdummy0 per Hotplug aktiviert
+allow-hotplug bat0
+iface bat0 inet static
+    address {{batman_mesh_ipv4|ipaddr('address')}}
+    netmask {{batman_mesh_ipv4|ipaddr('netmask')}}
+    hwaddress {{batman_bat_mac}}
+    pre-up ip rule add from {{batman_mesh_ipv4}} table 42
+    pre-up ip rule add to {{batman_mesh_ipv4}} table 42
+    pre-up batctl it 5000
+    pre-up batctl bl 0
+{% if batman_gateway %}
+    pre-up batctl gw server 48mbit/48mbit
+{% endif %}
+    pre-up echo 120 > /sys/class/net/$IFACE/mesh/hop_penalty
+    post-down ip rule del from {{batman_mesh_ipv4}} table 42
+    post-down ip rule del to {{batman_mesh_ipv4}} table 42
+
+iface bat0 inet6 static
+    address {{batman_mesh_ipv6}}

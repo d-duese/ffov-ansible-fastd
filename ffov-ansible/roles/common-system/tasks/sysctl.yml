@@ -1,0 +1,5 @@
+---
+
+- name: Install custom sysctl variables
+  copy: src=sysctl.conf dest=/etc/sysctl.d/system.conf
+  notify: Load sysctl variables

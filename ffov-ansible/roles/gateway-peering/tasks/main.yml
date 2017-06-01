@@ -1,0 +1,13 @@
+---
+
+- name: Install GRE uplink tunnel interfaces
+  template:
+    dest: "/etc/network/interfaces.d/{{item.file}}"
+    src: "{{item.template}}"
+  with_items:
+  - file: 30_peering.cfg
+    template: peering_interfaces.j2
+
+- name: Install Bird6 configuration for eBGP
+  template: src=peering6.conf.j2 dest=/etc/bird/conf6.d/peering6.conf
+  notify: Reload bird daemons

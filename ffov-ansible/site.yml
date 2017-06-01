@@ -1,0 +1,48 @@
+---
+
+- hosts: all
+  roles:
+    - common-net
+    - common-repos
+    - common-auth
+    - common-system
+
+- hosts: mesh
+  roles:
+    - mesh-routing
+    - mesh-interfaces
+
+- hosts: batman
+  roles:
+    - mesh-batman
+
+- hosts: supernodes
+  roles:
+    - gateway-peering
+    - gateway-nat
+    - gateway-iptables
+    - mesh-vpn-fastd
+    - service-ntp
+    - service-dns
+    - service-dhcp
+    - common-tools
+
+# - hosts: mapservers
+#   roles:
+#     - common-ntpclient
+#     - service-nginx
+#     - service-map
+#     - service-wiki
+#     - service-gitolite
+#     - service-images
+
+- hosts: imageservers
+  roles:
+    - common-ntpclient
+    - service-nginx
+    # - service-images
+
+#- hosts: buildservers
+#  roles:
+#    - common-ntpclient
+#    - common-docker

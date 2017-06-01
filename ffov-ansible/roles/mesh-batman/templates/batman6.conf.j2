@@ -1,0 +1,10 @@
+protocol direct bat0 {
+	interface "bat0";
+}
+
+protocol radv ra_bat0 {
+	interface "bat0";
+{% for host in groups['supernodes'] %}
+	rdnss {{hostvars[host].batman_mesh_ipv6|ipaddr('address')}};
+{% endfor %}
+}

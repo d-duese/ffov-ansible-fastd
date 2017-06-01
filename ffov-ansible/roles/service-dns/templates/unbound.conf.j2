@@ -1,0 +1,20 @@
+server:
+	# Disables DNSSEC
+	module-config: "iterator"
+	interface: 0.0.0.0
+	interface: ::0
+	access-control: {{ipv4_network}} allow
+	access-control: {{ipv6_network}} allow
+	access-control: fe80::/10 allow
+
+local-zone: "services.ffov.de." static
+{% for host in groups['supernodes'] %}
+local-data: "ntp.services.ffov.de. AAAA {{hostvars[host].mesh_ipv6_address|ipaddr('address')}}"
+{% endfor %}
+local-data: "update.services.ffov.de. AAAA {{update_server}}"
+
+forward-zone:
+	name: .
+{% for forwarder in forwarders %}
+	forward-addr: {{forwarder}}
+{% endfor %}

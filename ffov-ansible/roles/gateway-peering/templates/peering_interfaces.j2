@@ -1,0 +1,20 @@
+{% if peers is defined %}
+{% for peer in peers %}
+{% if peer.gre_endpoint is defined %}
+auto {{peer.name}}
+iface {{peer.name}} inet tunnel
+    mode gre
+    ttl 64
+    mtu 1400
+    netmask 255.255.255.255
+    address {{peer.source_ipv4}}
+    dstaddr {{peer.peer_ipv4}}
+    local {{primary_v4_address}}
+    endpoint {{peer.gre_endpoint}}
+
+iface {{peer.name}} inet6 static
+    address {{peer.source_ipv6}}
+
+{% endif %}
+{% endfor %}
+{% endif %}

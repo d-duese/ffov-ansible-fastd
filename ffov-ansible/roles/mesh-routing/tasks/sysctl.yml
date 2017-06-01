@@ -1,0 +1,5 @@
+---
+
+- name: Install routing specific sysctl variables
+  copy: src=sysctl.conf dest=/etc/sysctl.d/routing.conf
+  notify: Load sysctl variables

@@ -1,0 +1,8 @@
+---
+# 20161117 Zak: Mal sehen ob ich Dateien da hin kopiert bekomme
+
+- name: Install fastd socket tool
+  copy: src=fastd-query dest=/usr/local/bin owner=root group=root mode=0755
+
+- name: Install fastd status tool
+  copy: src=status.pl dest=/usr/local/bin owner=root group=root mode=0755

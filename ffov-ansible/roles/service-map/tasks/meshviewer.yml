@@ -1,0 +1,45 @@
+---
+# tasks file for meshviewer
+
+- name: Install build dependencies
+  apt: name={{item}} state=present update_cache=yes cache_valid_time=3600
+  with_items: "{{meshviewer_build_dependencies}}"
+
+- name: Create meshviewer install directory
+  file: name={{meshviewer_install_directory}} state=directory
+
+- name: Create meshviewer build directory
+  file: name={{meshviewer_build_directory}} state=directory
+
+- name: Clone meshviewer
+  register: meshviewer_cloned
+  git: repo={{meshviewer_repo}} dest={{meshviewer_build_directory}} version={{meshviewer_version}}
+
+- name: Install npm build dependencies
+  command: npm install
+  when: meshviewer_cloned|changed
+  register: meshviewer_npm_installed
+  args:
+    chdir: "{{meshviewer_build_directory}}/"
+    creates: "{{meshviewer_build_directory}}/node_modules"
+
+- name: Install bower and grunt
+  when: meshviewer_npm_installed|changed
+  command: npm install bower grunt-cli
+  args:
+    chdir: "{{meshviewer_build_directory}}"
+
+- name: Build meshviewer
+  command: node_modules/.bin/grunt
+  args:
+    chdir: "{{meshviewer_build_directory}}/"
+    creates: "{{meshviewer_build_directory}}/build"
+
+- name: Copy meshviewer into install directory
+  shell: cp -r {{meshviewer_build_directory}}/build/* {{meshviewer_install_directory}}
+
+- name: Install build config
+  template: src=config.js.j2 dest="{{meshviewer_build_directory}}/config.js"
+
+- name: Copy config
+  template: src=config.js.j2 dest="{{meshviewer_install_directory}}/config.js"

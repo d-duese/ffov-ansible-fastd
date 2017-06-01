@@ -1,0 +1,6 @@
+---
+
+- include: environment.yml
+- include: sudo.yml
+- include: users.yml
+- include: ssh.yml

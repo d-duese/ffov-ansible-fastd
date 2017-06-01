@@ -1,0 +1,6 @@
+.vault-password
+.vagrant
+.kitchen/
+.kitchen.*.yml
+secrets
+inventories/ffdo
